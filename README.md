@@ -435,10 +435,9 @@ AI tools were used to assist with:
 
 # 👨‍💻 Author
 
-**Name:** *Your Name*
+**Name:** *Md Aaman*
 
 ---
 
 # 📄 License
 
-This project is intended for educational purposes.
