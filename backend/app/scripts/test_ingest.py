@@ -1,0 +1,3 @@
+from app.services.ingest_service import IngestService
+
+print(IngestService.ingest())
