@@ -1,6 +1,7 @@
 from app.chains.rag_chain import RAGChain
 
 from app.utils.response_cleaner import clean_response
+from app.memory.conversation_manager import ConversationManager
 
 
 
@@ -10,13 +11,14 @@ class ChatService:
     @staticmethod
     async def chat(
         question: str,
-        history: list,
+        session_id: str,
         provider: str,
     ):
 
         try:
 
-
+            history = ConversationManager.get_message(session_id=session_id)
+            
             rag = RAGChain.build(
                 provider
             )
@@ -47,6 +49,13 @@ class ChatService:
                 response
             )
 
+            ConversationManager.add_message(session_id=session_id,question={"role ":"user",
+                                                                            "message":question})
+            
+            ConversationManager.add_message(session_id=session_id,question={"role ":"assistant",
+                                                                                        "message":question})
+            
+            
 
 
             return {

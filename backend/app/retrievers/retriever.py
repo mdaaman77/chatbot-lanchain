@@ -13,7 +13,7 @@ class RetrieverFactory:
         )
 
     @staticmethod 
-    def get_mmr_retriever(k: int = 3):  # Fixed spelling
+    def get_mmr_retriever(k: int = 3): 
         vector_store = PineconeStore.get_vector_store()
         return vector_store.as_retriever(
             search_type="mmr",

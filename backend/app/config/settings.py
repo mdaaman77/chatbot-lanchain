@@ -21,6 +21,14 @@ class Settings(BaseSettings):
     # Default Provider
     MODEL_PROVIDER: str = "gemini"
 
+    #redis
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int = 0
+    REDIS_PASSWORD: str | None = None
+ 
+    SESSION_TTL: int = 1800
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",

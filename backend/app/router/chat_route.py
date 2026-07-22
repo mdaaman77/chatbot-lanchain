@@ -1,27 +1,30 @@
-from app.services.chat_service import ChatService
-from fastapi import APIRouter
+from fastapi import APIRouter, Request, Response
+
+from app.memory.session_manager import SessionManager
 from app.schemas.chat_schemas import ChatRequest
+from app.services.chat_service import ChatService
 
 router = APIRouter()
 
 
-
-
 @router.post("/chat")
-async def chat(request: ChatRequest):
+async def chat(
+    request: Request,
+    response: Response,
+    payload: ChatRequest,
+):
 
-    response = await ChatService.chat(
+    session_id = SessionManager.get_session_id(
+        request=request,
+        response=response,
+    )
 
-        question=request.question,
-
-        history=request.history,
-
-        provider=request.provider,
-
+    result = await ChatService.chat(
+        session_id=session_id,
+        question=payload.question,
+        provider=payload.provider,
     )
 
     return {
-
-        "answer": response
-
+        "answer": result
     }

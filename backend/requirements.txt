@@ -19,3 +19,7 @@ markdown
 tiktoken
 
 httpx
+
+redis
+
+rank_bm25

@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from  app.router import chat_route
+from app.core.lifespan import lifespan
 
 app = FastAPI(
     title="Internal Knowledge Chatbot",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
