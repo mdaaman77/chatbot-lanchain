@@ -20,7 +20,8 @@ class ChatService:
             history = ConversationManager.get_message(session_id=session_id)
             
             rag = RAGChain.build(
-                provider
+                provider,
+                history
             )
 
 

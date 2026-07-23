@@ -40,7 +40,10 @@ class ConversationManager:
     async def get_message(cls,session_id:str)-> List[ChatMessage]:
        redis = RedisClient.get_client()
        key = cls._key(session_id=session_id)
-       prevMessages =await redis.lrange(key)
+       present = (redis.exists(key))
+       if not present:
+           return []
+       prevMessages =await redis.rrange(key)
 
        return [
            ChatMessage.model_validate_json(msg)
