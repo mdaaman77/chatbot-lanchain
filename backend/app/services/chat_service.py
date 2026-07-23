@@ -17,12 +17,10 @@ class ChatService:
 
         try:
 
-            history = ConversationManager.get_message(session_id=session_id)
+            history = await ConversationManager.get_message(session_id=session_id)
             
-            rag = RAGChain.build(
-                provider,
-                history
-            )
+            rag_chain_instance = RAGChain()
+            chain = rag_chain_instance.build(provider, history)
 
 
             chain = rag["chain"]

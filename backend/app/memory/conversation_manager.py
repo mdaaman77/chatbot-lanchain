@@ -40,9 +40,9 @@ class ConversationManager:
     async def get_message(cls,session_id:str)-> List[ChatMessage]:
        redis = RedisClient.get_client()
        key = cls._key(session_id=session_id)
-       present = (redis.exists(key))
+       present = await (redis.exists(key))
        if not present:
-           return []
+           return [""]
        prevMessages =await redis.rrange(key)
 
        return [
@@ -55,7 +55,7 @@ class ConversationManager:
     async def delete_chat_session(cls,session_id:str)->None:
         key = cls._key(session_id=session_id)
         redis = RedisClient.get_client()
-        present = (redis.exists(key))
+        present = await(redis.exists(key))
 
         if present is 0: return
         redis.delete(key)
